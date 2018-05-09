@@ -1,0 +1,207 @@
+<div [@routerTransition]>
+    <h2 class="text-muted">Dashboard <small>Web Service Overview</small></h2>
+    <mat-card>
+  <mat-card-content>
+    <mat-tab-group class="demo-tab-group">
+      <mat-tab label="Country Ip Look UP">
+          <form novalidate class="form-inline">
+            <mat-form-field>
+                <input matInput placeholder="IP ADDRESS" [formControl]="IP_ADDRESS">
+              </mat-form-field>
+            <div class="btn-group">
+                <button mat-button mat-raised-button (click)="getCountryByIP()" class="btn btn-secondary" [disabled]="isLoading">
+                    <i class="fa fa-spinner fa-spin" [hidden]="!isLoading"></i>
+                    <span>Search</span>
+                </button>
+             </div>
+          </form>
+        <div class="demo-tab-content">
+          <mat-list role="list">
+             <mat-list-item role="listitem" *ngFor="let key of objectKeys">{{key}} : {{country[key] | json}}</mat-list-item>
+          </mat-list>
+        </div>
+      </mat-tab>
+      <mat-tab label="City Ip Look UP">
+          <form novalidate class="form-inline">
+            <mat-form-field>
+                <input matInput placeholder="IP ADDRESS" [formControl]="IP_ADDRESS">
+              </mat-form-field>
+            <div class="btn-group">
+                <button mat-button mat-raised-button (click)="getCityByIp()" class="btn btn-secondary" [disabled]="isLoading">
+                    <i class="fa fa-spinner fa-spin" [hidden]="!isLoading"></i>
+                    <span>Search</span>
+                </button>
+             </div>
+          </form>
+        <div class="demo-tab-content">
+          <mat-list role="list">
+             <mat-list-item role="listitem" *ngFor="let key of cityKeys">{{key}} : {{city[key] | json}}</mat-list-item>
+          </mat-list>
+        </div>
+      </mat-tab>
+      <mat-tab label="Country Multiple Ip Look UP">
+          <form novalidate class="form-inline">
+              <mat-form-field class="demo-chip-list">
+                <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let ip of ips" [selectable]="selectable"
+                            [removable]="removable" (removed)="remove(ip)">
+                    {{ip}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="New IP..."
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)" />
+                </mat-chip-list>
+                </mat-form-field>
+            <div class="btn-group">
+                <button mat-button mat-raised-button (click)="getCountryByIps()" class="btn btn-secondary" [disabled]="isLoading">
+                    <i class="fa fa-spinner fa-spin" [hidden]="!isLoading"></i>
+                    <span>Search</span>
+                </button>
+             </div>
+          </form>
+          <div class="example-container mat-elevation-z8">
+              <mat-table #table [dataSource]="dataSource">
+                <ng-container matColumnDef="names">
+                  <mat-header-cell *matHeaderCellDef> names </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.names | json}} </mat-cell>
+                </ng-container>
+            
+                <ng-container matColumnDef="confidence">
+                  <mat-header-cell *matHeaderCellDef> confidence </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.confidence}} </mat-cell>
+                </ng-container>
+            
+                <ng-container matColumnDef="isoCode">
+                  <mat-header-cell *matHeaderCellDef> isoCode </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.isoCode}} </mat-cell>
+                </ng-container>
+            
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef> name </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="countryColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: countryColumns;"></mat-row>
+              </mat-table>
+            
+              <mat-paginator #paginator
+                            [pageSize]="10"
+                            [pageSizeOptions]="[5, 10, 20]"
+                            [showFirstLastButtons]="true">
+              </mat-paginator>
+            </div>
+      </mat-tab>
+      <mat-tab label="City Multiple Ip Look UP">
+            <form novalidate class="form-inline">
+              <mat-form-field class="demo-chip-list">
+                <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let ip of ips" [selectable]="selectable"
+                            [removable]="removable" (removed)="remove(fruit)">
+                    {{ip}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="New IP..."
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)" />
+                </mat-chip-list>
+                </mat-form-field>
+              <div class="btn-group">
+                  <button mat-button mat-raised-button (click)="getCityByIps()" class="btn btn-secondary" [disabled]="isLoading">
+                      <i class="fa fa-spinner fa-spin" [hidden]="!isLoading"></i>
+                      <span>Search</span>
+                  </button>
+              </div>
+            </form>
+            <div class="example-container mat-elevation-z8">
+                <mat-table #table [dataSource]="dataSource2">
+                  <ng-container matColumnDef="names">
+                    <mat-header-cell *matHeaderCellDef> names </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.names | json}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="confidence">
+                    <mat-header-cell *matHeaderCellDef> confidence </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.confidence}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="isoCode">
+                    <mat-header-cell *matHeaderCellDef> isoCode </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.isoCode}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="subdivisionIsoCode">
+                    <mat-header-cell *matHeaderCellDef> subdivisionIsoCode </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.subdivisionIsoCode}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="subdivisionConfidence">
+                    <mat-header-cell *matHeaderCellDef> subdivisionConfidence </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.subdivisionConfidence}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="subdivisionName">
+                    <mat-header-cell *matHeaderCellDef> subdivisionName </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.subdivisionName}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="cityName">
+                    <mat-header-cell *matHeaderCellDef> cityName </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.cityName}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="cityConfidence">
+                    <mat-header-cell *matHeaderCellDef> cityConfidence </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.cityConfidence}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="postalCode">
+                    <mat-header-cell *matHeaderCellDef> postalCode </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.postalCode}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="postalConfidence">
+                    <mat-header-cell *matHeaderCellDef> postalConfidence </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.postalConfidence}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="latitude">
+                    <mat-header-cell *matHeaderCellDef> latitude </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.latitude}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="longitude">
+                    <mat-header-cell *matHeaderCellDef> longitude </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.longitude}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="accuracyRadius">
+                    <mat-header-cell *matHeaderCellDef> accuracyRadius </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.accuracyRadius}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef> name </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                  </ng-container>
+            
+              
+                  <mat-header-row *matHeaderRowDef="cityColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: cityColumns;"></mat-row>
+                </mat-table>
+              
+                <mat-paginator #paginator
+                              [pageSize]="10"
+                              [pageSizeOptions]="[5, 10, 20]"
+                              [showFirstLastButtons]="true">
+                </mat-paginator>
+              </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
+</div>
