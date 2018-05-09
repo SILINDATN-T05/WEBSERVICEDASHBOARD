@@ -1,4 +1,4 @@
-`cic-dashboard` provides the following features:
+`WEBSERVICEDASHBOARD` provides the following features:
 - Developed using boostrap-v4.0.0
 - angular-v5.2.9
 - angular/cli-v1.7.3
@@ -15,8 +15,8 @@
 
 In order to start the project use:
 ```bash
-$ git clone https://github.com/SILINDATN-T05/cic-dashboard.git
-$ cd cic-dashboard
+$ git clone https://github.com/SILINDATN-T05/WEBSERVICEDASHBOARD.git
+$ cd WEBSERVICEDASHBOARD
 # install the project's dependencies
 $ npm install
 # watches your files and uses livereload by default run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
